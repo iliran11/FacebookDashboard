@@ -1,0 +1,18 @@
+
+<button id="login" ng-click="login()">login</button>
+<button id="get-posts" ng-click="getPosts()"> get posts</button>
+
+{{postsLikes}}
+
+<table style="width:100%">
+  <tr>
+    <th>Post Message</th>
+    <th>Number of Likes</th> 
+
+  </tr>
+  <tr ng-repeat="object in finalresult | limitTo: 5">
+    <td><a href="http://facebook.com/{{object.id}}">{{object.message}}</a>
+    <td> {{object.likesCount}}</td>
+    </tr>
+
+</table>
