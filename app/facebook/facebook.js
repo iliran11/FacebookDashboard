@@ -11,15 +11,15 @@ angular.module('facebookLir.likesCounter', ['ngRoute'])
     });
   }])
 
-  .controller('likeCounter', ['$scope', '$http','$getPosts',function ($scope, $http, $getPosts) {
-
-
+  .controller('likeCounter', ['$scope', '$http','serviceId',function ($scope, $http, $getPosts,serviceId) {
+debugger;
     $scope.login = function () {
-      $getPosts();
+
+
       FB.login(function (response) {
         if (response.authResponse) {
           console.log('Welcome!  Fetching your information.... ');
-          $scope.getPosts();
+
           FB.api('/me', function (response) {
             console.log('Good to see you, ' + response.name + '.');
           });
@@ -29,39 +29,39 @@ angular.module('facebookLir.likesCounter', ['ngRoute'])
       });
     }
 
-    $scope.getPosts = function () {
-      FB.api("/me/posts", {
-        fields: 'message,likes,type,story,attachments{media}'
-      }, function (response) {
-        //printing only objects with media
-        // console.log(response.data[0]);
-        
-        // response.data.forEach(function (element,index) {
-        //     if (index===9 | index===8) {
-        //       console.log(element);
-        //     }
-        //   if (element.attachments.data) {
-        //     // console.log (element.attachments.data[0].media.image.src)
-        //     console.log("there is a media!");
-        //   }
-        //     else {
-        //       debugger;
-        //       console.log ("no image!")
-        //     }
-      
-        // })
-          response.data.forEach(function (element) {
-            if (element.Attachments) {
-              console.log (element.Attachments);
-            }
-          });
-        //printing only objects with media
-        $scope.analyzeResponse(response.data);
-        if (response.paging) {
-          $scope.getNextPage(response.paging.next);
-        }
-      });
-    };
+    // $scope.getPosts = function () {
+    //   FB.api("/me/posts", {
+    //     fields: 'message,likes,type,story,attachments{media}'
+    //   }, function (response) {
+    //     //printing only objects with media
+    //     // console.log(response.data[0]);
+    //
+    //     // response.data.forEach(function (element,index) {
+    //     //     if (index===9 | index===8) {
+    //     //       console.log(element);
+    //     //     }
+    //     //   if (element.attachments.data) {
+    //     //     // console.log (element.attachments.data[0].media.image.src)
+    //     //     console.log("there is a media!");
+    //     //   }
+    //     //     else {
+    //     //       debugger;
+    //     //       console.log ("no image!")
+    //     //     }
+    //
+    //     // })
+    //       response.data.forEach(function (element) {
+    //         if (element.Attachments) {
+    //           console.log (element.Attachments);
+    //         }
+    //       });
+    //     //printing only objects with media
+    //     $scope.analyzeResponse(response.data);
+    //     if (response.paging) {
+    //       $scope.getNextPage(response.paging.next);
+    //     }
+    //   });
+    // };
 
     $scope.getNextPage = function (pageUrl) {
       $http({
@@ -76,20 +76,20 @@ angular.module('facebookLir.likesCounter', ['ngRoute'])
           /*
           here the loop is over 100%
           */
-          $scope.finalresult = $scope.sortresult(); 
+          $scope.finalresult = $scope.sortresult();
         }
       }, function errorCallback(response) {
         console.log("error")
       });
 
     }
-    
+
     $scope.postsAnalyzed = [];
     $scope.analyzeResponse = function (response) {
       response.forEach (function (element,inext) {
         var tempObject= {};
         if (element.message) {
-          tempObject.message = element.message;     
+          tempObject.message = element.message;
         }
         else {
           tempObject.message = "* No Text  *";
@@ -113,7 +113,7 @@ $scope.sortresult = function () {
   }
 })
 }
-        
+
       })
     }
         $scope.login();

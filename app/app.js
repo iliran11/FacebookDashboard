@@ -10,8 +10,10 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 
   $routeProvider.otherwise({redirectTo: '/facebook'});
 }])
-.service('$getPosts',function () {
-  console.log ("service is acting");
-})
-;
-;
+.factory('serviceId', function() {
+  return function (string) {
+    console.log(string);
+  }
+  // factory function body that constructs shinyNewServiceInstance
+  return shinyNewServiceInstance;
+});
